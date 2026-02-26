@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Item Details</h2>
+
+<p>ID: {{ item.id }}</p>
+<p>Name: {{ item.name }}</p>
+<p>Description: {{ item.description }}</p>
+<p>Price: ${{ item.price }}</p>
+
+<p><a href="/items/ui">Back to items list</a></p>
+{% endblock %}

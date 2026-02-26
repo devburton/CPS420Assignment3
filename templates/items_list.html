@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Items</h1>
+
+{% if items %}
+<ul>
+  {% for item in items %}
+    <li>
+      <a href="/items/ui/{{ item.id }}">{{ item.name }}</a>
+      - {{ item.description }}
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No items found.</p>
+{% endif %}
+
+<p><a href="/items/ui/create">Create new item</a></p>
+
+{% endblock %}

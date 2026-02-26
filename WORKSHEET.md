@@ -89,31 +89,41 @@ Open each file and answer the questions in your own words.
 ### 1a. `db/models.py`
 
 - What table name does the `Item` model map to?
+
+It maps to the items table
+
 - List every column and its Python type.
+
+id - Integer
+name - String
+description - String
+price - Float
+
 - Which column has a default value? What is it?
 
-```
-Your answer:
-```
+description has a default value of an empty string.
+
 
 ### 1b. `db/database.py`
 
 - What SQLAlchemy function creates the engine?
+
+create_engine does this
+
 - What does `get_db` do, and why does it use `yield`?
 
-```
-Your answer:
-```
+It sets up the database session it uses yield because it separates the function into setup and shutdown where the code after the yield runs on shutdown
 
 ### 1c. `app.py`
 
 - How does the `@app.on_event("startup")` handler differ from the older `@app.on_event` pattern?  
+The on event startup now uses the lifespan contextmanager which allows code to run on startup and shutdown instead of separate functions
+
   *(Hint: look at the lifespan context manager.)*
 - How does `app.py` receive a database session without importing `Session` directly?
 
-```
-Your answer:
-```
+It uses Depends on get_db which gets the database session
+
 
 ---
 
@@ -206,11 +216,11 @@ Open `http://127.0.0.1:8000/docs` (Swagger UI) and test each endpoint:
 For each endpoint, record the HTTP status code you received:
 
 ```
-GET /items          status: ____
-GET /items/1        status: ____
-POST /items         status: ____
-DELETE /items/1     status: ____
-POST /items/discount status: ____
+GET /items          status: 200
+GET /items/1        status: 200
+POST /items         status: 201
+DELETE /items/1     status: 200
+POST /items/discount status: 200
 ```
 
 ---
@@ -221,27 +231,19 @@ Answer in 2-3 sentences each.
 
 1. **Why is it better to keep database queries out of `app.py`?**
 
-```
-Your answer:
-```
+It make the app easier to work with because the core components are separated if app.py focuses on the presentation it makes updates to presentation easier becuase that's all app.py does same with making changes to database logic
 
 2. **What would you need to change if you switched from SQLite to PostgreSQL?**
 
-```
-Your answer:
-```
+likely would not be that difficult you would need to change the url to be to the postgrSQL database and change any sqlite specific functions to their postgre counterparts
 
 3. **How does Jinja2 template inheritance (base.html) reduce code duplication?**
 
-```
-Your answer:
-```
+It allows you to reuse the same html for every other template and not need to duplicate it
 
 4. **What does `db.refresh(item)` do after `db.commit()`?**
 
-```
-Your answer:
-```
+commit adds the item to the actual database and then the db.refresh updates the object the is assined the database with the new item 
 
 ---
 
